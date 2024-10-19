@@ -13,4 +13,3 @@ botao.addEventListener("click", () => {
     botao.style.left = leftAleatoria + "px";
     botao.style.top = topAleatoria + "px";
 });
-
