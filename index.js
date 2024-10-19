@@ -1,6 +1,6 @@
 const botao = document.querySelector(".btn");
 
-botao.addEventListener("mouseover", () => {
+botao.addEventListener("click", () => {
     const larguraJanela = window.innerWidth;
     const alturaJanela = window.innerWidth;
     
@@ -12,4 +12,5 @@ botao.addEventListener("mouseover", () => {
 
     botao.style.left = leftAleatoria + "px";
     botao.style.top = topAleatoria + "px";
-})
+});
+
