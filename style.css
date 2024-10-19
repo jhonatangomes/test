@@ -1,0 +1,27 @@
+*{
+
+}
+ 
+body{
+    background-color: rgba(83, 50, 83, 0.514);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.botao{
+    padding: 100px;
+}
+button{
+    background-color: rgb(222, 87, 222);
+    color: rgb(34, 43, 41);
+    font-weight: bold;
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 50px black;
+}
+
+.btn{
+    position: absolute;
+    transition: 0.3s;
+}
