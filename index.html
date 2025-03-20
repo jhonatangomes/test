@@ -7,12 +7,21 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Hoje tem?</h1>
+    <h1>Responda com SIM ou NÃO Hoje tem RABO?
+    </h1>
     <div class="botao">
-        <button class="btn">
-            NÃO
-        </button>
+        <input type="radio" name="sim" id="sim" checked>
+        <label for="sim">SIM</label>
+        <input type="radio" name="sim" id="nao">
+        <label for="nao">NÃO</label>      
+
+        
+        <input type="button" value="verificar" onclick="clicar()">
+        
+        <div id="res"></div>
+       
         <script src="index.js"></script>
     </div>
+    
 </body>
 </html>
