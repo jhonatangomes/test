@@ -1,27 +1,52 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
-    <h1>Responda com SIM ou NÃO Hoje tem RABO?
-    </h1>
-    <div class="botao">
-        <input type="radio" name="sim" id="sim" checked>
-        <label for="sim">SIM</label>
-        <input type="radio" name="sim" id="nao">
-        <label for="nao">NÃO</label>      
-
-        
-        <input type="button" value="verificar" onclick="clicar()">
-        
-        <div id="res"></div>
-       
-        <script src="index.js"></script>
+    <div class="envelope-container">
+        <div class="envelope">
+            <div class="envelope-flap"></div>
+            <div class="envelope-content">
+                <h2>Para minha namorada 💌</h2>
+                <p>
+                    Você é o meu maior presente.<br>
+                    Te amo infinitamente!<br>
+                    <span style="color:#ff4b91;font-size:1.2em;">&#10084;&#65039;</span>
+                </p>
+            </div>
+            <span class="heart heart1">💖</span>
+            <span class="heart heart2">💗</span>
+            <span class="heart heart3">💓</span>
+            <span class="heart heart4">💞</span>
+            <span class="heart heart5">💘</span>
+            <span class="heart heart6">💝</span>
+        </div>
+        <button class="btn-ir" id="btnIr">Ir para a próxima página</button>
+        <div class="barra-carregamento" id="barraCarregamento">
+            <div class="progresso" id="progresso"></div>
+        </div>
     </div>
-    
+    <script>
+        document.getElementById('btnIr').onclick = function() {
+            var barra = document.getElementById('barraCarregamento');
+            var progresso = document.getElementById('progresso');
+            barra.style.display = 'block';
+            progresso.style.width = '0';
+            let percent = 0;
+            let intervalo = setInterval(function() {
+                percent += 10;
+                progresso.style.width = percent + '%';
+                if (percent >= 100) {
+                    clearInterval(intervalo);
+                    // Troque "outra-pagina.html" pelo nome da sua página de destino
+                    window.location.href = "segunda-pagina/index01.html";
+                }
+            }, 120);
+        };
+    </script>
 </body>
 </html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regiane & Jhonatan</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Regiane Lima</h1>
+    </header>
+    <main>
+        <h2>Para a minha Regiane, com todo meu orgulho e amor</h2>
+        <p>
+            Amor, hoje eu só queria dizer o quanto admiro você. Você é uma menina incrível, trabalhadeira, dedicada e determinada. Sempre correndo atrás dos seus sonhos com coragem, sem nunca reclamar do cansaço, sem nunca desistir — mesmo quando o caminho parece difícil.
+        </p>
+        <!-- Novo carrossel automático com as imagens principais -->
+        <div class="carrossel auto-carrossel" id="autoCarrossel">
+            <img class="auto-carrossel-img" src="imagem/regi.png" alt="Regiane Lima" style="display:block;">
+            <img class="auto-carrossel-img" src="imagem/jhonatan.png" alt="Jhonatan Gomes" style="display:none;">
+            <img class="auto-carrossel-img" src="imagem/regi.png" alt="Regiane Lima" style="display:none;">
+        </div>
+        <!-- Botão para mostrar mensagem e carrossel -->
+        <input type="button" value="Clique aqui para ver a mensagem especial" id="btn">
+        
+        <!-- Mensagem especial -->
+        <div id="mensagem-texto" style="display: none;">
+            <p>
+                Eu te amo muito, Regiane! Você é a minha inspiração e a razão do meu sorriso. Obrigado por ser quem você é e por me fazer tão feliz.
+            </p>
+            
+            <!-- Carrossel de imagens -->
+            <div class="carrossel" id="carrossel" style="display: none;">
+                <button class="carrossel-btn" id="prevBtn">&#8592;</button>
+                <img id="carrossel-img" src="imagem/regi.png" alt="Carrossel">
+                <button class="carrossel-btn" id="nextBtn">&#8594;</button>
+            </div>
+        </div>
+    </main>
+    <div id="efeitos-container"></div>
+    <script src="/js/index.js"></script>
+</body>
+</html>
