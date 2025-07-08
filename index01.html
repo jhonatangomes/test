@@ -4,7 +4,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    
+    <style>
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffb6e6 0%, #b5f0ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+        .envelope-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .envelope {
+            width: 340px;
+            height: 220px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 0 40px 10px #ffb6e6, 0 0 80px 20px #b5f0ff;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: -60px; left: -60px; right: -60px; bottom: -60px;
+            border-radius: 32px;
+            box-shadow: 0 0 80px 40px #ffb6e6, 0 0 120px 60px #b5f0ff;
+            z-index: -1;
+        }
+        .envelope-flap {
+            position: absolute;
+            top: -80px;
+            left: 0;
+            width: 100%;
+            height: 120px;
+            background: linear-gradient(135deg, #ff7eb3 60%, #ffb6e6 100%);
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+            z-index: 2;
+            box-shadow: 0 8px 24px 0 #ffb6e6aa;
+        }
+        .envelope-content {
+            position: absolute;
+            top: 60px;
+            left: 0;
+            width: 100%;
+            height: 140px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 3;
+        }
+        .envelope-content h2 {
+            margin: 0 0 8px 0;
+            color: #ff4b91;
+            font-size: 1.4rem;
+            font-weight: bold;
+            text-align: center;
+        }
+        .envelope-content p {
+            margin: 0;
+            color: #7b2ff2;
+            font-size: 1.05rem;
+            text-align: center;
+        }
+        /* Corações decorativos */
+        .heart {
+            position: absolute;
+            font-size: 2.2rem;
+            pointer-events: none;
+            animation: pulse 2s infinite alternate;
+        }
+        .heart1 { top: 10px; left: 18px; color: #ff4b91; animation-delay: 0s;}
+        .heart2 { top: 18px; right: 22px; color: #ff7eb3; animation-delay: .5s;}
+        .heart3 { bottom: 18px; left: 32px; color: #ffb6e6; animation-delay: 1s;}
+        .heart4 { bottom: 22px; right: 28px; color: #ff4b91; animation-delay: 1.5s;}
+        .heart5 { top: 50%; left: -24px; color: #ff7eb3; animation-delay: .8s;}
+        .heart6 { top: 50%; right: -24px; color: #ffb6e6; animation-delay: 1.2s;}
+        @keyframes pulse {
+            to { transform: scale(1.2) rotate(-10deg);}
+        }
+        /* Responsivo */
+        @media (max-width: 400px) {
+            .envelope { width: 90vw; height: 220px;}
+            .envelope-content { top: 70px; height: 100px;}
+        }
+
+
+        .btn-ir {
+            margin: 24px auto 0 auto;
+            display: block;
+            padding: 12px 32px;
+            background: linear-gradient(90deg, #ff4b91, #7b2ff2);
+            color: #fff;
+            border: none;
+            border-radius: 24px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 12px #ffb6e6aa;
+            transition: background 0.2s;
+        }
+        .btn-ir:hover {
+            background: linear-gradient(90deg, #7b2ff2, #ff4b91);
+        }
+        .barra-carregamento {
+            width: 80%;
+            height: 10px;
+            background: #eee;
+            border-radius: 8px;
+            margin: 24px auto 0 auto;
+            overflow: hidden;
+            display: none;
+        }
+        .barra-carregamento .progresso {
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, #ff4b91, #7b2ff2);
+            border-radius: 8px;
+            transition: width 0.4s;
+        }
+    </style>
 </head>
 <body>
     <div class="envelope-container">
