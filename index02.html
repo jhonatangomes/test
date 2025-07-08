@@ -164,16 +164,20 @@
     </style>
 </head>
 <body>
+    
     <div class="felicitacao-container">
         <h1>Feliz Dia, Meu Amor! <span style="font-size:1.5em;">&#10084;&#65039;</span></h1>
+        
         <div class="texto-principal">
             Hoje é mais um capítulo lindo da nossa história!<br>
             Você ilumina meus dias com seu sorriso, sua força e seu carinho.<br>
             Obrigado por ser minha inspiração, minha parceira e meu grande amor.<br>
             <span style="color:#ffe066;font-size:1.2em;">&#11088;</span>
         </div>
+        <audio id="musicaFundo" src="imagem/teste.mpeg" controls></audio>
         <!-- Carrossel infinito -->
         <div class="carrossel-infinito" id="carrosselInfinito">
+            
             <img src="imagem/IMG-20250707-WA0029.jpg" class="ativo" alt="Foto 1">
             <img src="imagem/IMG-20250707-WA0030.jpg" alt="Foto 2">
             <img src="imagem/IMG-20250707-WA0029.jpg" alt="Foto 3">
@@ -196,6 +200,7 @@
         </div>
     </div>
     <div id="efeitos-container"></div>
+   
     <script>
         // Carrossel infinito automático
         const imgs = document.querySelectorAll('#carrosselInfinito img');
@@ -271,6 +276,7 @@
                 video.controls = true;
                 video.style.borderRadius = "12px";
                 carrosselManualMidia.appendChild(video);
+                adicionarEventoVideo();
             } else {
                 const img = document.createElement('img');
                 img.src = midia.src;
@@ -290,6 +296,15 @@
             idxManual = (idxManual + 1) % imagensManual.length;
             renderizarMidiaManual();
         };
+
+        // Pausar música de fundo ao dar play em qualquer vídeo do carrossel manual
+        function adicionarEventoVideo() {
+            const videos = carrosselManualMidia.querySelectorAll('video');
+            videos.forEach(video => {
+                video.onplay = () => document.getElementById('musicaFundo').pause();
+                video.onpause = () => document.getElementById('musicaFundo').play();
+            });
+        }
     </script>
 </body>
 </html>
