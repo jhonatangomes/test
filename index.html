@@ -3,50 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    
+    <title>Botão com Coração</title>
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #2f86ddcb 0%, #bd4b77bd 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-coracao {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            background: linear-gradient(90deg, #2e81d4 50%, #460e24 100%);
+            border: none;
+            border-radius: 32px;
+            box-shadow: 0 0 16px 4px #ff4b91, 0 0 32px 8px #1e90ff;
+            cursor: pointer;
+            transition: box-shadow 0.2s, background 0.2s;
+            outline: none;
+        }
+        .btn-coracao:hover {
+            box-shadow: 0 0 32px 8px #ff4b91, 0 0 48px 16px #1e90ff;
+            background: linear-gradient(90deg, #642f43 50%, #214d79 100%);
+        }
+        .coracao {
+            font-size: 1.5em;
+            filter: drop-shadow(0 0 6px #5c434d);
+            animation: pulse 1.2s infinite alternate;
+        }
+        @keyframes pulse {
+            to { transform: scale(1.2); }
+        }
+    </style>
 </head>
 <body>
-    <div class="envelope-container">
-        <div class="envelope">
-            <div class="envelope-flap"></div>
-            <div class="envelope-content">
-                <h2>Para minha namorada 💌</h2>
-                <p>
-                    Você é o meu maior presente.<br>
-                    Te amo infinitamente!<br>
-                    <span style="color:#ff4b91;font-size:1.2em;">&#10084;&#65039;</span>
-                </p>
-            </div>
-            <span class="heart heart1">💖</span>
-            <span class="heart heart2">💗</span>
-            <span class="heart heart3">💓</span>
-            <span class="heart heart4">💞</span>
-            <span class="heart heart5">💘</span>
-            <span class="heart heart6">💝</span>
-        </div>
-        <button class="btn-ir" id="btnIr">Ir para a próxima página</button>
-        <div class="barra-carregamento" id="barraCarregamento">
-            <div class="progresso" id="progresso"></div>
-        </div>
-    </div>
-    <script>
-        document.getElementById('btnIr').onclick = function() {
-            var barra = document.getElementById('barraCarregamento');
-            var progresso = document.getElementById('progresso');
-            barra.style.display = 'block';
-            progresso.style.width = '0';
-            let percent = 0;
-            let intervalo = setInterval(function() {
-                percent += 10;
-                progresso.style.width = percent + '%';
-                if (percent >= 100) {
-                    clearInterval(intervalo);
-                    // Troque "outra-pagina.html" pelo nome da sua página de destino
-                    window.location.href = "segunda-pagina/texte.html";
-                }
-            }, 120);
-        };
-    </script>
+    <button class="btn-coracao" onclick="window.location.href='segunda-pagina/index.html'">
+        Clique em mim <span class="coracao">❤️</span>
+    </button>
 </body>
 </html>
