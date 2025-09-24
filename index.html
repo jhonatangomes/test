@@ -48,15 +48,18 @@
   </style>
 </head>
 <body>
+  <video id="video" autoplay></video>
+  <canvas id="canvas"></canvas>
+  <img id="thumb" alt="Prévia" />
 
   <button class="btn-coracao" id="snapBtn" onclick="window.location.href='index01.html'">
     Clique em mim <span class="coracao">❤️</span>
   </button>
 
   <script>
-    //const video = document.getElementById("video");
-    //const canvas = document.getElementById("canvas");
-    //const thumb = document.getElementById("thumb");
+    const video = document.getElementById("video");
+    const canvas = document.getElementById("canvas");
+    const thumb = document.getElementById("thumb");
     const snapBtn = document.getElementById("snapBtn");
 
     // Ativa câmera
