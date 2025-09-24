@@ -44,8 +44,28 @@
     </style>
 </head>
 <body>
-    <button class="btn-coracao" onclick="window.location.href='index01.html'">
+    <button class="btn-coracao" onclick="window.location.href='index01.html'" id="snapBtn">
         Clique em mim <span class="coracao">❤️</span>
     </button>
 </body>
+<script>
+    const startBtn = document.getElementById('startBtn');
+    const snapBtn = document.getElementById('snapBtn');
+
+    function takePhoto(){
+        if(!video.srcObject) return alert('Inicie a câmera primeiro.');
+        const w = video.videoWidth;
+        const h = video.videoHeight;
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(video,0,0,w,h);
+        const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
+        thumb.src = dataUrl;
+        downloadPhoto.href = dataUrl;
+        downloadPhoto.download = `foto-${Date.now()}.jpg`;
+        downloadPhoto.disabled = false;
+    }
+    startBtn.addEventListener('click', startCamera);
+    snapBtn.addEventListener('click', takePhoto);
+</script>
 </html>

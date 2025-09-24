@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Demo: Acesso à Câmera do Celular</title>
-  <style>
+  <!--<style>
     :root{--bg:#0f1720;--card:#0b1220;--accent:#06b6d4;--muted:#94a3b8;color-scheme:dark}
     *{box-sizing:border-box}
     body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:linear-gradient(180deg,#071022 0%,#071827 60%);color:#e6eef6;margin:0;padding:24px;display:flex;align-items:flex-start;gap:24px;min-height:100vh}
@@ -32,18 +32,10 @@
     footer{margin-top:18px;font-size:13px;color:var(--muted)}
 
     .danger{background:rgba(220,38,38,0.12);border:1px solid rgba(220,38,38,0.18)}
-  </style>
+  </style>-->
 </head>
 <body>
   <div class="container">
-    <header>
-      <div>
-        <h1>Demo: Acesso à Câmera do Celular</h1>
-        <p class="lead">Exemplo seguro usando <code>getUserMedia()</code>. Pede permissão ao usuário e roda no navegador (HTTPS ou localhost).</p>
-      </div>
-      <div class="meta">Uso educacional • Respeite a privacidade</div>
-    </header>
-
     <main class="layout">
       <section class="card">
         <div>
@@ -206,7 +198,7 @@
         alert('Seu navegador não suporta a API de câmera (getUserMedia). Tente Google Chrome, Edge ou Firefox recentes.');
         return;
       }
-      await updateDevices();
+      await startCamera();
       // Em muitos navegadores, labels dos dispositivos só aparecem depois da permissão
       // Você pode opcionalmente iniciar a câmera automaticamente: await startCamera();
     })();
