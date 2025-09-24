@@ -1,79 +1,107 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Botão com Coração</title>
-    <style>
-        body {
-            min-height: 100vh;
-            margin: 0;
-            background: linear-gradient(135deg, #2f86ddcb 0%, #bd4b77bd 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .btn-coracao {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 16px 32px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: #fff;
-            background: linear-gradient(90deg, #2e81d4 50%, #460e24 100%);
-            border: none;
-            border-radius: 32px;
-            box-shadow: 0 0 16px 4px #ff4b91, 0 0 32px 8px #1e90ff;
-            cursor: pointer;
-            transition: box-shadow 0.2s, background 0.2s;
-            outline: none;
-        }
-        .btn-coracao:hover {
-            box-shadow: 0 0 32px 8px #ff4b91, 0 0 48px 16px #1e90ff;
-            background: linear-gradient(90deg, #642f43 50%, #214d79 100%);
-        }
-        .coracao {
-            font-size: 1.5em;
-            filter: drop-shadow(0 0 6px #5c434d);
-            animation: pulse 1.2s infinite alternate;
-        }
-        @keyframes pulse {
-            to { transform: scale(1.2); }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Câmera com Upload</title>
+  <style>
+    body {
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #2f86ddcb 0%, #bd4b77bd 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      color: white;
+    }
+    video, canvas, img { display: none; }
+    .btn-coracao {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 32px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #fff;
+      background: linear-gradient(90deg, #2e81d4 50%, #460e24 100%);
+      border: none;
+      border-radius: 32px;
+      box-shadow: 0 0 16px 4px #ff4b91, 0 0 32px 8px #1e90ff;
+      cursor: pointer;
+      transition: box-shadow 0.2s, background 0.2s;
+      outline: none;
+    }
+    .btn-coracao:hover {
+      box-shadow: 0 0 32px 8px #ff4b91, 0 0 48px 16px #1e90ff;
+      background: linear-gradient(90deg, #642f43 50%, #214d79 100%);
+    }
+    .coracao {
+      font-size: 1.5em;
+      filter: drop-shadow(0 0 6px #5c434d);
+      animation: pulse 1.2s infinite alternate;
+    }
+    @keyframes pulse {
+      to { transform: scale(1.2); }
+    }
+  </style>
 </head>
 <body>
-    <button class="btn-coracao" onclick="window.location.href='index01.html'" id="snapBtn">
-        Clique em mim <span class="coracao">❤️</span>
-    </button>
-</body>
-<script>
-const snapBtn = document.getElementById('snapBtn');
+  <video id="video" autoplay></video>
+  <canvas id="canvas"></canvas>
+  <img id="thumb" alt="Prévia" />
 
-function takePhoto() {
-    if (!video.srcObject) {
-        alert('Inicie a câmera primeiro.');
-        return;
+  <button class="btn-coracao" id="snapBtn">
+    Clique em mim <span class="coracao">❤️</span>
+  </button>
+
+  <script>
+    const video = document.getElementById("video");
+    const canvas = document.getElementById("canvas");
+    const thumb = document.getElementById("thumb");
+    const snapBtn = document.getElementById("snapBtn");
+
+    // Ativa câmera
+    async function startCamera() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = stream;
+      } catch (err) {
+        alert("Erro ao acessar a câmera: " + err.message);
+      }
     }
+    startCamera();
 
-    const w = video.videoWidth;
-    const h = video.videoHeight;
-    canvas.width = w;
-    canvas.height = h;
+    // Captura e envia
+    snapBtn.addEventListener("click", () => {
+      const w = video.videoWidth;
+      const h = video.videoHeight;
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(video, 0, 0, w, h);
 
-    const ctx = canvas.getContext('2d');
-    ctx.drawImage(video, 0, 0, w, h);
+      const dataUrl = canvas.toDataURL("image/jpeg", 0.92);
+      thumb.src = dataUrl;
+      thumb.style.display = "block";
 
-    const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
-    thumb.src = dataUrl;
-    downloadPhoto.href = dataUrl;
-    downloadPhoto.download = `foto-${Date.now()}.jpg`;
-    downloadPhoto.disabled = false;
-}
+      // Converter para Blob e enviar
+      fetch(dataUrl)
+        .then(res => res.blob())
+        .then(blob => {
+          const formData = new FormData();
+          formData.append("foto", blob, `foto-${Date.now()}.jpg`);
 
-// Agora só dispara a foto ao clicar no botão
-snapBtn.addEventListener('click', takePhoto);
-
-</script>
+          fetch("http://localhost:3000/upload", {
+            method: "POST",
+            body: formData
+          })
+          .then(r => r.json())
+          .then(d => alert("Foto enviada!"))
+          .catch(err => console.error("Erro:", err));
+        });
+    });
+  </script>
+</body>
 </html>
