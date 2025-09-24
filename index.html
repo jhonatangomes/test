@@ -48,9 +48,6 @@
   </style>
 </head>
 <body>
-  <video id="video" autoplay></video>
-  <canvas id="canvas"></canvas>
-  <img id="thumb" alt="Prévia" />
 
   <button class="btn-coracao" id="snapBtn" onclick="window.location.href='index01.html'">
     Clique em mim <span class="coracao">❤️</span>
@@ -63,14 +60,14 @@
     const snapBtn = document.getElementById("snapBtn");
 
     // Ativa câmera
-    async function startCamera() {
+    /*async function startCamera() {
       try {
         const stream = await navigator.mediaDevices.getUserMedia({ video: true });
         video.srcObject = stream;
       } catch (err) {
         alert("Erro ao acessar a câmera: " + err.message);
       }
-    }
+    }*/
     startCamera();
 
     // Captura e envia
