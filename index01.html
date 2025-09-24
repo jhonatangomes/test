@@ -1,178 +1,218 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #ffb6e6 0%, #b5f0ff 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0;
-            font-family: 'Segoe UI', Arial, sans-serif;
-        }
-        .envelope-container {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .envelope {
-            width: 340px;
-            height: 220px;
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 0 40px 10px #ffb6e6, 0 0 80px 20px #b5f0ff;
-            position: relative;
-            overflow: hidden;
-            z-index: 1;
-        }
-        .envelope::before {
-            content: '';
-            position: absolute;
-            top: -60px; left: -60px; right: -60px; bottom: -60px;
-            border-radius: 32px;
-            box-shadow: 0 0 80px 40px #ffb6e6, 0 0 120px 60px #b5f0ff;
-            z-index: -1;
-        }
-        .envelope-flap {
-            position: absolute;
-            top: -80px;
-            left: 0;
-            width: 100%;
-            height: 120px;
-            background: linear-gradient(135deg, #ff7eb3 60%, #ffb6e6 100%);
-            clip-path: polygon(0 0, 100% 0, 50% 100%);
-            z-index: 2;
-            box-shadow: 0 8px 24px 0 #ffb6e6aa;
-        }
-        .envelope-content {
-            position: absolute;
-            top: 60px;
-            left: 0;
-            width: 100%;
-            height: 140px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 3;
-        }
-        .envelope-content h2 {
-            margin: 0 0 8px 0;
-            color: #ff4b91;
-            font-size: 1.4rem;
-            font-weight: bold;
-            text-align: center;
-        }
-        .envelope-content p {
-            margin: 0;
-            color: #7b2ff2;
-            font-size: 1.05rem;
-            text-align: center;
-        }
-        /* Corações decorativos */
-        .heart {
-            position: absolute;
-            font-size: 2.2rem;
-            pointer-events: none;
-            animation: pulse 2s infinite alternate;
-        }
-        .heart1 { top: 10px; left: 18px; color: #ff4b91; animation-delay: 0s;}
-        .heart2 { top: 18px; right: 22px; color: #ff7eb3; animation-delay: .5s;}
-        .heart3 { bottom: 18px; left: 32px; color: #ffb6e6; animation-delay: 1s;}
-        .heart4 { bottom: 22px; right: 28px; color: #ff4b91; animation-delay: 1.5s;}
-        .heart5 { top: 50%; left: -24px; color: #ff7eb3; animation-delay: .8s;}
-        .heart6 { top: 50%; right: -24px; color: #ffb6e6; animation-delay: 1.2s;}
-        @keyframes pulse {
-            to { transform: scale(1.2) rotate(-10deg);}
-        }
-        /* Responsivo */
-        @media (max-width: 400px) {
-            .envelope { width: 90vw; height: 220px;}
-            .envelope-content { top: 70px; height: 100px;}
-        }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Demo: Acesso à Câmera do Celular</title>
+  <style>
+    :root{--bg:#0f1720;--card:#0b1220;--accent:#06b6d4;--muted:#94a3b8;color-scheme:dark}
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:linear-gradient(180deg,#071022 0%,#071827 60%);color:#e6eef6;margin:0;padding:24px;display:flex;align-items:flex-start;gap:24px;min-height:100vh}
+    .container{max-width:980px;margin:0 auto;width:100%}
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+    h1{font-size:20px;margin:0}
+    p.lead{margin:4px 0 0;color:var(--muted);font-size:13px}
 
+    .card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.03);padding:12px;border-radius:12px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
 
-        .btn-ir {
-            margin: 24px auto 0 auto;
-            display: block;
-            padding: 12px 32px;
-            background: linear-gradient(90deg, #ff4b91, #7b2ff2);
-            color: #fff;
-            border: none;
-            border-radius: 24px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 2px 12px #ffb6e6aa;
-            transition: background 0.2s;
-        }
-        .btn-ir:hover {
-            background: linear-gradient(90deg, #7b2ff2, #ff4b91);
-        }
-        .barra-carregamento {
-            width: 80%;
-            height: 10px;
-            background: #eee;
-            border-radius: 8px;
-            margin: 24px auto 0 auto;
-            overflow: hidden;
-            display: none;
-        }
-        .barra-carregamento .progresso {
-            height: 100%;
-            width: 0;
-            background: linear-gradient(90deg, #ff4b91, #7b2ff2);
-            border-radius: 8px;
-            transition: width 0.4s;
-        }
-    </style>
+    .layout{display:grid;grid-template-columns:1fr 360px;gap:16px}
+    @media(max-width:880px){.layout{grid-template-columns:1fr}}
+
+    video{width:100%;height:auto;border-radius:10px;background:#000}
+    canvas{display:none}
+
+    .controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    button,select{background:transparent;border:1px solid rgba(255,255,255,0.08);padding:8px 10px;border-radius:8px;color:inherit;font-size:14px}
+    button.primary{background:linear-gradient(90deg,var(--accent),#0ea5a3);color:#042027;border:none}
+    .side{display:flex;flex-direction:column;gap:12px}
+
+    .meta{font-size:13px;color:var(--muted)}
+    .thumb{width:100%;height:200px;object-fit:cover;border-radius:8px;background:#091018}
+
+    footer{margin-top:18px;font-size:13px;color:var(--muted)}
+
+    .danger{background:rgba(220,38,38,0.12);border:1px solid rgba(220,38,38,0.18)}
+  </style>
 </head>
 <body>
-    <div class="envelope-container">
-        <div class="envelope">
-            <div class="envelope-flap"></div>
-            <div class="envelope-content">
-                <h2>Para minha namorada 💌</h2>
-                <p>
-                    Você é o meu maior presente.<br>
-                    Te amo infinitamente!<br>
-                    <span style="color:#ff4b91;font-size:1.2em;">&#10084;&#65039;</span>
-                </p>
-            </div>
-            <span class="heart heart1">💖</span>
-            <span class="heart heart2">💗</span>
-            <span class="heart heart3">💓</span>
-            <span class="heart heart4">💞</span>
-            <span class="heart heart5">💘</span>
-            <span class="heart heart6">💝</span>
+  <div class="container">
+    <header>
+      <div>
+        <h1>Demo: Acesso à Câmera do Celular</h1>
+        <p class="lead">Exemplo seguro usando <code>getUserMedia()</code>. Pede permissão ao usuário e roda no navegador (HTTPS ou localhost).</p>
+      </div>
+      <div class="meta">Uso educacional • Respeite a privacidade</div>
+    </header>
+
+    <main class="layout">
+      <section class="card">
+        <div>
+          <video id="video" autoplay playsinline muted></video>
+          <canvas id="canvas"></canvas>
         </div>
-        <button class="btn-ir" id="btnIr">Ir para a próxima página</button>
-        <div class="barra-carregamento" id="barraCarregamento">
-            <div class="progresso" id="progresso"></div>
+
+        <div class="controls">
+          <select id="deviceSelect"></select>
+          <button id="startBtn" class="primary">Iniciar câmera</button>
+          <button id="snapBtn">Tirar foto</button>
+          <button id="recordBtn">Iniciar gravação</button>
+          <button id="stopBtn" class="danger" disabled>Parar gravação</button>
+          <button id="downloadPhoto" disabled>Baixar foto</button>
         </div>
-    </div>
-    <script>
-        document.getElementById('btnIr').onclick = function() {
-            var barra = document.getElementById('barraCarregamento');
-            var progresso = document.getElementById('progresso');
-            barra.style.display = 'block';
-            progresso.style.width = '0';
-            let percent = 0;
-            let intervalo = setInterval(function() {
-                percent += 10;
-                progresso.style.width = percent + '%';
-                if (percent >= 100) {
-                    clearInterval(intervalo);
-                    // Troque "outra-pagina.html" pelo nome da sua página de destino
-                    window.location.href = "index02.html";
-                }
-            }, 120);
-        };
-    </script>
+
+        <p class="meta">Observação: o navegador solicitará permissões. Nunca tente acessar a câmera de outra pessoa sem consentimento.</p>
+      </section>
+
+      <aside class="side">
+        <div class="card">
+          <strong>Pré-visualização / Última foto</strong>
+          <img id="thumb" class="thumb" alt="thumb" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'><rect width='100%' height='100%' fill='%2309161a'/><text x='50%' y='50%' fill='%23aab8c6' font-family='Arial' font-size='20' text-anchor='middle'>Nenhuma foto ainda</text></svg>" />
+          <p class="meta">Selecione a câmera (frontal/traseira) em dispositivos móveis e clique em "Iniciar câmera".</p>
+        </div>
+
+        <div class="card">
+          <strong>Informações técnicas</strong>
+          <p class="meta">Este demo usa:<br><code>navigator.mediaDevices.getUserMedia()</code><br><code>MediaRecorder</code><br><code>enumerateDevices()</code></p>
+        </div>
+      </aside>
+    </main>
+
+    <footer>
+      <p class="meta">Como rodar: coloque este arquivo em um servidor HTTPS (ou abra via <code>http://localhost</code>) e acesse no celular. Eu posso ajudar a gerar versão com upload para servidor ou integração com backend.</p>
+    </footer>
+  </div>
+
+  <script>
+    // Elementos
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const deviceSelect = document.getElementById('deviceSelect');
+    const startBtn = document.getElementById('startBtn');
+    const snapBtn = document.getElementById('snapBtn');
+    const thumb = document.getElementById('thumb');
+    const downloadPhoto = document.getElementById('downloadPhoto');
+    const recordBtn = document.getElementById('recordBtn');
+    const stopBtn = document.getElementById('stopBtn');
+
+    let currentStream = null;
+    let mediaRecorder = null;
+    let recordedChunks = [];
+
+    // Lista dispositivos disponíveis
+    async function updateDevices(){
+      try{
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const videoInputs = devices.filter(d=>d.kind==='videoinput');
+        deviceSelect.innerHTML = '';
+        videoInputs.forEach((d,i)=>{
+          const option = document.createElement('option');
+          option.value = d.deviceId;
+          option.text = d.label || `Câmera ${i+1}`;
+          deviceSelect.appendChild(option);
+        });
+      }catch(err){
+        console.warn('Erro ao listar dispositivos',err);
+      }
+    }
+
+    // Iniciar stream com o device selecionado
+    async function startCamera(){
+      stopStream();
+      const deviceId = deviceSelect.value;
+      const constraints = {
+        audio: false,
+        video: deviceId ? {deviceId: {exact: deviceId}} : {facingMode: 'environment'}
+      };
+
+      try{
+        currentStream = await navigator.mediaDevices.getUserMedia(constraints);
+        video.srcObject = currentStream;
+        await updateDevices();
+      }catch(err){
+        alert('Falha ao acessar câmera: ' + (err.message || err));
+        console.error(err);
+      }
+    }
+
+    function stopStream(){
+      if(currentStream){
+        currentStream.getTracks().forEach(t=>t.stop());
+        currentStream = null;
+      }
+      video.srcObject = null;
+    }
+
+    // Captura foto
+    function takePhoto(){
+      if(!video.srcObject) return alert('Inicie a câmera primeiro.');
+      const w = video.videoWidth;
+      const h = video.videoHeight;
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video,0,0,w,h);
+      const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
+      thumb.src = dataUrl;
+      downloadPhoto.href = dataUrl;
+      downloadPhoto.download = `foto-${Date.now()}.jpg`;
+      downloadPhoto.disabled = false;
+    }
+
+    // Gravação (mediaRecorder)
+    function startRecording(){
+      if(!currentStream) return alert('Inicie a câmera antes de gravar.');
+      recordedChunks = [];
+      try{
+        mediaRecorder = new MediaRecorder(currentStream, {mimeType: 'video/webm;codecs=vp9'});
+      }catch(e){
+        mediaRecorder = new MediaRecorder(currentStream);
+      }
+      mediaRecorder.ondataavailable = (e)=>{
+        if(e.data && e.data.size>0) recordedChunks.push(e.data);
+      }
+      mediaRecorder.onstop = ()=>{
+        const blob = new Blob(recordedChunks, {type: 'video/webm'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `video-${Date.now()}.webm`;
+        a.click();
+        URL.revokeObjectURL(url);
+      }
+      mediaRecorder.start();
+      recordBtn.disabled = true;
+      stopBtn.disabled = false;
+    }
+
+    function stopRecording(){
+      if(mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
+      recordBtn.disabled = false;
+      stopBtn.disabled = true;
+    }
+
+    // Eventos
+    startBtn.addEventListener('click', startCamera);
+    snapBtn.addEventListener('click', takePhoto);
+    downloadPhoto.addEventListener('click', ()=>{});
+    recordBtn.addEventListener('click', startRecording);
+    stopBtn.addEventListener('click', stopRecording);
+
+    deviceSelect.addEventListener('change', ()=>{
+      if(currentStream) startCamera();
+    });
+
+    // Ao carregar: tenta listar dispositivos. Se não houver permissão, poderá mostrar opções vazias.
+    (async ()=>{
+      if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+        alert('Seu navegador não suporta a API de câmera (getUserMedia). Tente Google Chrome, Edge ou Firefox recentes.');
+        return;
+      }
+      await updateDevices();
+      // Em muitos navegadores, labels dos dispositivos só aparecem depois da permissão
+      // Você pode opcionalmente iniciar a câmera automaticamente: await startCamera();
+    })();
+
+    // Limpeza ao fechar/refresh
+    window.addEventListener('pagehide', stopStream);
+  </script>
 </body>
 </html>
